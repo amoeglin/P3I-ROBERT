@@ -1,0 +1,54 @@
+Type=OleDll
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\Windows\SysWOW64\stdole2.tlb#OLE Automation
+Reference=*\G{00000600-0000-0010-8000-00AA006D2EA4}#2.7#0#..\..\..\..\..\Program Files (x86)\Common Files\System\ado\msadox.dll#Microsoft ADO Ext. 2.7 for DDL and Security
+Reference=*\G{00000206-0000-0010-8000-00AA006D2EA4}#2.6#0#..\..\..\..\..\Program Files (x86)\Common Files\System\ado\msado26.tlb#Microsoft ActiveX Data Objects 2.6 Library
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
+Object={67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0; MSADODC.OCX
+RelatedDoc=DataAccess.mdl
+Module=modErrorHandling; modErrorHandling.bas
+Module=modClassIDGenerator; modClassIDGenerator.bas
+Class=DataAccess; DataAccess.cls
+Class=DataHelper; DataHelper.cls
+Startup="(None)"
+HelpFile=""
+Title="P3IDataAccess"
+ExeName32="P3IDataAccess.dll"
+Command32=""
+Name="P3IGeneraliDataAccess"
+HelpContextID="0"
+CompatibleMode="1"
+CompatibleEXE32="P3IDataAccess.dll"
+MajorVer=5
+MinorVer=1
+RevisionVer=98
+AutoIncrementVer=1
+ServerSupportFiles=0
+VersionCompanyName="Cabinet Moeglin"
+VersionFileDescription="P3I version Generali"
+VersionLegalCopyright="Copyright 1997-2013 Actuaries Services"
+VersionLegalTrademarks="Actuaries Services"
+VersionProductName="P3I Generali"
+CompilationType=0
+OptimizationType=0
+FavorPentiumPro(tm)=0
+CodeViewDebugInfo=0
+NoAliasing=0
+BoundsCheck=0
+OverflowCheck=0
+FlPointCheck=0
+FDIVCheck=0
+UnroundedFP=0
+StartMode=1
+Unattended=0
+Retained=0
+ThreadPerObject=0
+MaxNumberOfThreads=1
+ThreadingModel=1
+DebugStartupOption=0
+
+[MS Transaction Server]
+AutoRefresh=1
+
+[RVB]
+DeleteClass1=
+DeleteClass2=

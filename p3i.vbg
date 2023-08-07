@@ -1,0 +1,6 @@
+VBGROUP 5.0
+Project=P3IImport.vbp
+Project=DataAccess\P3IDataAccess.vbp
+Project=P3IExport.vbp
+Project=P3IImportGenerali.vbp
+StartupProject=P3I.vbp

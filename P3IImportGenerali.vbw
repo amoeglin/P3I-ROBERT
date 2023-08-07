@@ -1,0 +1,12 @@
+iImportGenerali = 208, 208, 777, 828, C
+frmWait = 156, 156, 1484, 693, C, 0, 0, 1182, 650, C
+clsLogger = -198, 190, 1096, 727, 
+ModuleControle = 156, 156, 1450, 693, 
+Regdist = 78, 78, 1378, 507, 
+frmChoixControle = 52, 52, 1234, 712, C, 52, 52, 1234, 702, C
+clsAssure = 0, 0, 1182, 650, 
+frmDisplayLog = 234, 234, 1416, 884, , 78, 78, 1260, 728, C
+frmSelectDate = 208, 208, 1447, 868, , 182, 182, 1421, 842, C
+constant = 208, 208, 1456, 868, 
+iImportGeneraliRevalo = 0, 0, 1108, 660, C
+iImportGeneraliSASP3I = 234, 234, 1342, 894, C
