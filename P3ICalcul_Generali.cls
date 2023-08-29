@@ -2487,7 +2487,7 @@ Private Sub CalculIncapacité(ByRef rsAssure As ADODB.Recordset, bForReformeRetra
             'mode hors inval 1
             PTPassageHorsInval1 = m_ModuleCalcul_Provisions.FctCalcProvPassage(x, m_xTerme, anc, Duree, franchise, feuilleLueIncap, feuilleLuePassage, feuilleLueInval, iIncap, fraisGestionIncap, iInval, 0, m_rsPeriode.fields("PESANSLISSAGE_PASSAGE")) 'fraisGestionInval)
             
-            'mode inval 1
+            'mode inval 1 nouvelle table spécifique inval 1 à 64 ans
             DateLimiteProvisionInval1 = ComputeDateLimiteApresReformeInval1(rsAssure, rsAssure.fields("POCATEGORIE_NEW"), rsAssure.fields("POTERME"), rsAssure.fields("PONAIS"), rsAssure.fields("POARRET"), rsAssure.fields("NUENRP3I"), True)
                    
             ' durée en mois entre date d'ARRET et date TERME du contrat
@@ -2655,7 +2655,7 @@ Private Sub CalculIncapacité(ByRef rsAssure As ADODB.Recordset, bForReformeRetra
         
             PT1PassageHorsInval1 = m_ModuleCalcul_Provisions.FctCalcProvPassage(x + 1, m_xTerme, anc, Duree, franchise, feuilleLueIncap, feuilleLuePassage, feuilleLueInval, iIncap, fraisGestionIncap, iInval, 0, m_rsPeriode.fields("PESANSLISSAGE_PASSAGE")) 'fraisGestionInval)
             PT1PassageInval1 = m_ModuleCalcul_Provisions.FctCalcProvPassage(x + 1, xTermePassageInval1, anc, DureePassageInval1, franchise, feuilleLueIncap, feuilleLuePassage, feuilleLueInval, iIncap, fraisGestionIncap, iInval, 0, m_rsPeriode.fields("PESANSLISSAGE_PASSAGE")) 'fraisGestionInval)
-            PT1 = Arrondi((1 - TauxIncapPassageSpecifiqueInval1) * PTPassageHorsInval1 + TauxIncapPassageSpecifiqueInval1 * PTPassageInval1, NbDecimalePM)
+            PT1 = Arrondi((1 - TauxIncapPassageSpecifiqueInval1) * PT1PassageHorsInval1 + TauxIncapPassageSpecifiqueInval1 * PT1PassageInval1, NbDecimalePM)
         Else
         
             PT1 = m_ModuleCalcul_Provisions.FctCalcProvPassage(x + 1, m_xTerme, anc, Duree, franchise, feuilleLueIncap, feuilleLuePassage, feuilleLueInval, iIncap, fraisGestionIncap, iInval, 0, m_rsPeriode.fields("PESANSLISSAGE_PASSAGE")) 'fraisGestionInval)
@@ -4135,7 +4135,7 @@ Private Function FindAgeDepartRetraiteInval1(dateNaissance As Date, bAgeTauxPlei
   sDateNaissance = " #" & Format(dateNaissance, "mm/dd/yyyy") & "# " 'm_dataHelper.BuildDateString(dateNaissance)
   
   m_dataHelper.Multi_Find m_rsAgeDepartRetraiteInval1, "DateDebut<=" & sDateNaissance & " AND DateFin>=" & sDateNaissance
-  If Not m_rsAgeDepartRetraite.EOF Then
+  If Not m_rsAgeDepartRetraiteInval1.EOF Then
       FindAgeDepartRetraiteInval1 = IIf(bAgeTauxPlein, m_rsAgeDepartRetraiteInval1.fields("AgeMinimumTauxPlein"), m_rsAgeDepartRetraiteInval1.fields("AgeMinimum"))
   Else
     FindAgeDepartRetraiteInval1 = IIf(bAgeTauxPlein, 67, 64)

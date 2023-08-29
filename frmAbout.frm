@@ -229,7 +229,7 @@ End Sub
 '##ModelId=5C8A67A10250
 Private Sub Form_Load()
     Me.Caption = "A propos de " & App.Title
-    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & ".0." & App.Revision & " - © 1997-2018 Actuaries Services"
+    lblVersion.Caption = "Version " & App.Major & "." & App.Minor & ".0." & App.Revision & " - © 1997-2023 Actuaries Services"
     
     lblTitle.Caption = "Provisions Techniques Incapacités Invalidités (P3I)"
     'lblDescription.Caption = vbLf & "Cabinet Moeglin " & vbLf & "Tel : 01.45.92.31.41" & vbLf & "Fax : 01.43.03.77.76" & vbLf & "www.moeglin.com"

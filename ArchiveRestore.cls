@@ -2983,7 +2983,7 @@ Private Function IsGeneralTable(table As String) As Boolean
 
   Dim notGeneral As String
   
-  notGeneral = "&&agedepartretraite&&agedepartretraite&&capitaux_moyens&&catr9&&catr9inval&&cdsituat&&codecatinv&&codescat&&coeffamortissement&&"
+  notGeneral = "&&agedepartretraiteinval1&&agedepartretraite&&capitaux_moyens&&catr9&&catr9inval&&cdsituat&&codecatinv&&codescat&&coeffamortissement&&"
   notGeneral = notGeneral & "correspondance_catoption&&donneessociales&&paramcalcul&&paramrentes&&passagenca&&pm_retenue&&"
   notGeneral = notGeneral & "provisionsouverture&&reassurance&&tbqrega&&assure_retraite&&assure_retraitetemp&&assuretemp&&"
   notGeneral = notGeneral & "assure&&editionii&&editioniii&&editioniitemp&&editioniiitemp&&editionrevalo&&editions&&"

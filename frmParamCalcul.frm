@@ -117,26 +117,26 @@ Begin VB.Form frmParamCalcul
       TabCaption(1)   =   "Rentes && Revalorisations"
       TabPicture(1)   =   "frmParamCalcul.frx":1BCE
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame6"
+      Tab(1).Control(0)=   "Frame5"
       Tab(1).Control(1)=   "Frame1"
-      Tab(1).Control(2)=   "Frame5"
+      Tab(1).Control(2)=   "Frame6"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Maintien Garanties Décès"
       TabPicture(2)   =   "frmParamCalcul.frx":1BEA
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame12"
-      Tab(2).Control(1)=   "Frame14"
-      Tab(2).Control(2)=   "Frame15"
-      Tab(2).Control(3)=   "Frame13"
-      Tab(2).Control(4)=   "Frame16"
-      Tab(2).Control(5)=   "Frame17"
+      Tab(2).Control(0)=   "Frame17"
+      Tab(2).Control(1)=   "Frame16"
+      Tab(2).Control(2)=   "Frame13"
+      Tab(2).Control(3)=   "Frame15"
+      Tab(2).Control(4)=   "Frame14"
+      Tab(2).Control(5)=   "Frame12"
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Risque Statutaire"
       TabPicture(3)   =   "frmParamCalcul.frx":1C06
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame23"
+      Tab(3).Control(0)=   "Frame18"
       Tab(3).Control(1)=   "Frame22"
-      Tab(3).Control(2)=   "Frame18"
+      Tab(3).Control(2)=   "Frame23"
       Tab(3).ControlCount=   3
       Begin VB.Frame maintienViag 
          Caption         =   "Loi de maintien Invalidité viagère "
@@ -1774,7 +1774,7 @@ Begin VB.Form frmParamCalcul
             Width           =   3840
          End
          Begin VB.Label Label35 
-            Caption         =   "% des incaps avec passage en inval cat 1 en utilisant la nouvelle table Age Départ retraite spécifique Inval1 à 64 ans"
+            Caption         =   "% des incap avec passage en inval cat 1 en utilisant la nouvelle table Age Départ retraite spécifique Inval1 à 64 ans"
             Height          =   495
             Left            =   960
             TabIndex        =   223

@@ -76,7 +76,6 @@ Begin VB.Form frmDetailPeriode
       _ExtentX        =   16457
       _ExtentY        =   13282
       _Version        =   393216
-      Tab             =   1
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
@@ -89,30 +88,28 @@ Begin VB.Form frmDetailPeriode
       EndProperty
       TabCaption(0)   =   "Général"
       TabPicture(0)   =   "frmDetailPeriode.frx":1BB2
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Frame11"
-      Tab(0).Control(1)=   "Frame3"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Frame18"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Frame2"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "Frame1"
-      Tab(0).Control(3)=   "Frame2"
-      Tab(0).Control(4)=   "Frame18"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Frame3"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Frame11"
+      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "Tables Diverses"
       TabPicture(1)   =   "frmDetailPeriode.frx":1BCE
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label26"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "dtaCATR9"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "sprCATR9"
-      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "btnExportCATR9"
+      Tab(1).Control(1)=   "btnPrintCATR9"
+      Tab(1).Control(2)=   "btnImportCATR9"
       Tab(1).Control(3)=   "cboCATR9"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "btnImportCATR9"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "btnPrintCATR9"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "btnExportCATR9"
-      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).Control(4)=   "sprCATR9"
+      Tab(1).Control(5)=   "dtaCATR9"
+      Tab(1).Control(6)=   "Label26"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "Correctif BCAC Affiné"
       TabPicture(2)   =   "frmDetailPeriode.frx":1BEA
@@ -160,7 +157,7 @@ Begin VB.Form frmDetailPeriode
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1095
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   38
          Top             =   2520
          Width           =   4110
@@ -195,7 +192,7 @@ Begin VB.Form frmDetailPeriode
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1095
-         Left            =   -70545
+         Left            =   4455
          TabIndex        =   35
          Top             =   2520
          Width           =   4695
@@ -228,7 +225,7 @@ Begin VB.Form frmDetailPeriode
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1995
-         Left            =   -74820
+         Left            =   180
          TabIndex        =   32
          Top             =   450
          Width           =   8970
@@ -247,7 +244,7 @@ Begin VB.Form frmDetailPeriode
       Begin VB.CommandButton btnExportCATR9 
          Caption         =   "&Exporter"
          Height          =   330
-         Left            =   6705
+         Left            =   -68295
          TabIndex        =   29
          Top             =   675
          Width           =   1185
@@ -255,7 +252,7 @@ Begin VB.Form frmDetailPeriode
       Begin VB.CommandButton btnPrintCATR9 
          Caption         =   "&Imprimer"
          Height          =   330
-         Left            =   3735
+         Left            =   -71265
          TabIndex        =   28
          Top             =   675
          Width           =   1455
@@ -263,7 +260,7 @@ Begin VB.Form frmDetailPeriode
       Begin VB.CommandButton btnImportCATR9 
          Caption         =   "&Importer"
          Height          =   330
-         Left            =   5445
+         Left            =   -69555
          TabIndex        =   27
          Top             =   675
          Width           =   1185
@@ -271,7 +268,7 @@ Begin VB.Form frmDetailPeriode
       Begin VB.ComboBox cboCATR9 
          Height          =   315
          ItemData        =   "frmDetailPeriode.frx":1C9B
-         Left            =   180
+         Left            =   -74820
          List            =   "frmDetailPeriode.frx":1C9D
          Style           =   2  'Dropdown List
          TabIndex        =   26
@@ -290,7 +287,7 @@ Begin VB.Form frmDetailPeriode
             Strikethrough   =   0   'False
          EndProperty
          Height          =   2040
-         Left            =   -74820
+         Left            =   180
          TabIndex        =   21
          Top             =   5310
          Width           =   8970
@@ -360,7 +357,7 @@ Begin VB.Form frmDetailPeriode
          EndProperty
          ForeColor       =   &H00FF0000&
          Height          =   1545
-         Left            =   -74820
+         Left            =   180
          TabIndex        =   12
          Top             =   3690
          Width           =   8970
@@ -417,7 +414,7 @@ Begin VB.Form frmDetailPeriode
                Strikethrough   =   0   'False
             EndProperty
             CustomFormat    =   "dd/MM/yyyy"
-            Format          =   183762947
+            Format          =   185270275
             CurrentDate     =   36114
          End
          Begin MSComCtl2.DTPicker DTPicker2 
@@ -439,7 +436,7 @@ Begin VB.Form frmDetailPeriode
                Strikethrough   =   0   'False
             EndProperty
             CustomFormat    =   "dd/MM/yyyy"
-            Format          =   183762947
+            Format          =   185270275
             CurrentDate     =   36114
          End
          Begin VB.Label lblLabels 
@@ -516,7 +513,7 @@ Begin VB.Form frmDetailPeriode
       Begin FPSpreadADO.fpSpread sprCATR9 
          Bindings        =   "frmDetailPeriode.frx":1CBA
          Height          =   6270
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   30
          Top             =   1125
          Width           =   9015
@@ -541,7 +538,7 @@ Begin VB.Form frmDetailPeriode
       End
       Begin MSAdodcLib.Adodc dtaCATR9 
          Height          =   330
-         Left            =   4920
+         Left            =   -70080
          Top             =   360
          Visible         =   0   'False
          Width           =   2310
@@ -614,7 +611,7 @@ Begin VB.Form frmDetailPeriode
       Begin VB.Label Label26 
          Caption         =   "Tables à afficher :"
          Height          =   240
-         Left            =   180
+         Left            =   -74820
          TabIndex        =   31
          Top             =   405
          Width           =   1455

@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "_fpSPR80.OCX"
+Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "fpSPR80.OCX"
 Begin VB.MDIForm frmMain 
    BackColor       =   &H8000000C&
    Caption         =   "P3I Generali"
@@ -123,19 +123,19 @@ Begin VB.MDIForm frmMain
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   4
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":200D
+            Picture         =   "main.frx":1F9C
             Key             =   "openCahier"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":2117
+            Picture         =   "main.frx":20A6
             Key             =   "openPeriode"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":2221
+            Picture         =   "main.frx":21B0
             Key             =   "About"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":232B
+            Picture         =   "main.frx":22BA
             Key             =   ""
          EndProperty
       EndProperty
