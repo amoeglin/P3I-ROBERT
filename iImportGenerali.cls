@@ -165,7 +165,7 @@ Private nbCodeCatInvNotFound As Long
 Private lstCodeCatInvNotFound() As String
 
 '##ModelId=5C90E96402CB
-Private m_dataHelper As DataHelper
+Private m_dataHelper As P3IGeneraliDataAccess.DataHelper
 
 '##ModelId=5C90E96402D2
 Private m_TypePeriode As Integer
