@@ -1,7 +1,7 @@
 iImportGenerali = 208, 208, 777, 828, Z
 frmWait = 156, 156, 1484, 693, C, 0, 0, 1182, 650, C
 clsLogger = -198, 190, 1096, 727, C
-ModuleControle = 156, 156, 1450, 693, C
+ModuleControle = 156, 156, 1450, 693, 
 Regdist = 78, 78, 1378, 507, C
 frmChoixControle = 52, 52, 1234, 712, C, 52, 52, 1234, 702, C
 clsAssure = 0, 0, 1182, 650, C
