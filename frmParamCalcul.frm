@@ -65,7 +65,7 @@ Begin VB.Form frmParamCalcul
    End
    Begin TabDlg.SSTab SSTab1 
       Height          =   9090
-      Left            =   45
+      Left            =   0
       TabIndex        =   1
       Top             =   480
       Width           =   11310
@@ -73,6 +73,7 @@ Begin VB.Form frmParamCalcul
       _ExtentY        =   16034
       _Version        =   393216
       Tabs            =   4
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -86,57 +87,50 @@ Begin VB.Form frmParamCalcul
       EndProperty
       TabCaption(0)   =   "Général"
       TabPicture(0)   =   "frmParamCalcul.frx":1BB2
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "lblLabels(6)"
-      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "lblLabels(1)"
-      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "lblLabels(3)"
-      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "Frame4"
-      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "Frame3"
-      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).Control(5)=   "Frame2"
-      Tab(0).Control(5).Enabled=   0   'False
       Tab(0).Control(6)=   "txtFields(6)"
-      Tab(0).Control(6).Enabled=   0   'False
       Tab(0).Control(7)=   "Frame19"
-      Tab(0).Control(7).Enabled=   0   'False
       Tab(0).Control(8)=   "txtNomParamCalcul"
-      Tab(0).Control(8).Enabled=   0   'False
       Tab(0).Control(9)=   "txtCode"
-      Tab(0).Control(9).Enabled=   0   'False
       Tab(0).Control(10)=   "Frame11"
-      Tab(0).Control(10).Enabled=   0   'False
       Tab(0).Control(11)=   "maintiendep"
-      Tab(0).Control(11).Enabled=   0   'False
       Tab(0).Control(12)=   "maintienViag"
-      Tab(0).Control(12).Enabled=   0   'False
       Tab(0).ControlCount=   13
       TabCaption(1)   =   "Rentes && Revalorisations"
       TabPicture(1)   =   "frmParamCalcul.frx":1BCE
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame5"
+      Tab(1).Control(0)=   "Frame6"
       Tab(1).Control(1)=   "Frame1"
-      Tab(1).Control(2)=   "Frame6"
+      Tab(1).Control(2)=   "Frame5"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Maintien Garanties Décès"
       TabPicture(2)   =   "frmParamCalcul.frx":1BEA
-      Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Frame17"
-      Tab(2).Control(1)=   "Frame16"
-      Tab(2).Control(2)=   "Frame13"
-      Tab(2).Control(3)=   "Frame15"
-      Tab(2).Control(4)=   "Frame14"
-      Tab(2).Control(5)=   "Frame12"
+      Tab(2).ControlEnabled=   -1  'True
+      Tab(2).Control(0)=   "Frame12"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Frame14"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Frame15"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "Frame13"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "Frame16"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "Frame17"
+      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).ControlCount=   6
       TabCaption(3)   =   "Risque Statutaire"
       TabPicture(3)   =   "frmParamCalcul.frx":1C06
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Frame18"
+      Tab(3).Control(0)=   "Frame23"
       Tab(3).Control(1)=   "Frame22"
-      Tab(3).Control(2)=   "Frame23"
+      Tab(3).Control(2)=   "Frame18"
       Tab(3).ControlCount=   3
       Begin VB.Frame maintienViag 
          Caption         =   "Loi de maintien Invalidité viagère "
@@ -150,7 +144,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   855
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   218
          Top             =   8020
          Width           =   5460
@@ -378,7 +372,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   855
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   179
          Top             =   7080
          Width           =   5460
@@ -411,7 +405,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   9270
+         Left            =   -65730
          TabIndex        =   146
          Top             =   1845
          Width           =   1905
@@ -426,7 +420,7 @@ Begin VB.Form frmParamCalcul
       End
       Begin VB.TextBox txtCode 
          Height          =   285
-         Left            =   1590
+         Left            =   -73410
          MaxLength       =   60
          TabIndex        =   3
          Top             =   540
@@ -586,7 +580,7 @@ Begin VB.Form frmParamCalcul
       End
       Begin VB.TextBox txtNomParamCalcul 
          Height          =   285
-         Left            =   4200
+         Left            =   -70800
          MaxLength       =   60
          TabIndex        =   5
          Top             =   540
@@ -604,7 +598,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   8
          Top             =   1845
          Width           =   5460
@@ -645,9 +639,9 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   780
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   136
-         Top             =   4050
+         Top             =   4410
          Width           =   5100
          Begin VB.TextBox txtFraisGestionRenteEducationDC 
             Height          =   330
@@ -686,9 +680,9 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   960
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   135
-         Top             =   5220
+         Top             =   5700
          Width           =   5100
          Begin VB.OptionButton rdoDCAucun 
             Caption         =   "Aucun"
@@ -735,9 +729,9 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1500
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   127
-         Top             =   2160
+         Top             =   2400
          Width           =   5100
          Begin VB.TextBox txtFraisGestionRenteConjointDC 
             Height          =   330
@@ -858,11 +852,27 @@ Begin VB.Form frmParamCalcul
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   6765
-         Left            =   -69285
+         Height          =   7575
+         Left            =   5640
          TabIndex        =   118
-         Top             =   585
+         Top             =   600
          Width           =   5235
+         Begin VB.TextBox txtAgeLimiteCalulDC_Retraite_Inval1 
+            Height          =   330
+            Left            =   3960
+            TabIndex        =   227
+            Text            =   "0"
+            Top             =   1800
+            Width           =   465
+         End
+         Begin VB.TextBox txtAgeLimiteCalulDC_Inval1 
+            Height          =   330
+            Left            =   1800
+            TabIndex        =   225
+            Text            =   "0"
+            Top             =   1800
+            Width           =   465
+         End
          Begin VB.TextBox txtAgeLimiteCalulDC_Retraite 
             Height          =   330
             Left            =   3960
@@ -876,7 +886,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1485
             Style           =   2  'Dropdown List
             TabIndex        =   171
-            Top             =   3195
+            Top             =   4035
             Width           =   3525
          End
          Begin VB.ComboBox cboTableInvalCalculDC_Retraite 
@@ -884,7 +894,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1485
             Style           =   2  'Dropdown List
             TabIndex        =   170
-            Top             =   3600
+            Top             =   4440
             Width           =   3525
          End
          Begin VB.ComboBox cboTableIncapPrecalculDC_Retraite 
@@ -892,7 +902,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1395
             Style           =   2  'Dropdown List
             TabIndex        =   165
-            Top             =   5850
+            Top             =   6690
             Width           =   3525
          End
          Begin VB.ComboBox cboTableInvalPrecalculDC_Retraite 
@@ -900,7 +910,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1395
             Style           =   2  'Dropdown List
             TabIndex        =   164
-            Top             =   6255
+            Top             =   7095
             Width           =   3525
          End
          Begin VB.TextBox txtAgeLimiteCalulDC 
@@ -925,7 +935,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1440
             Style           =   2  'Dropdown List
             TabIndex        =   115
-            Top             =   5085
+            Top             =   5925
             Width           =   3525
          End
          Begin VB.ComboBox cboTableIncapPrecalculDC 
@@ -933,7 +943,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1440
             Style           =   2  'Dropdown List
             TabIndex        =   114
-            Top             =   4680
+            Top             =   5520
             Width           =   3525
          End
          Begin VB.ComboBox cboTableInvalCalculDC 
@@ -941,7 +951,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1440
             Style           =   2  'Dropdown List
             TabIndex        =   112
-            Top             =   2475
+            Top             =   3315
             Width           =   3525
          End
          Begin VB.TextBox txtTauxTechnicCalculDC 
@@ -965,7 +975,7 @@ Begin VB.Form frmParamCalcul
             Left            =   1440
             Style           =   2  'Dropdown List
             TabIndex        =   111
-            Top             =   2070
+            Top             =   2910
             Width           =   3525
          End
          Begin VB.OptionButton rdoLireCoeffBCAC 
@@ -982,7 +992,7 @@ Begin VB.Form frmParamCalcul
             Height          =   240
             Left            =   135
             TabIndex        =   113
-            Top             =   4050
+            Top             =   4890
             Width           =   4965
          End
          Begin VB.OptionButton rdoCalculCoeffBCAC 
@@ -1001,6 +1011,40 @@ Begin VB.Form frmParamCalcul
             TabIndex        =   107
             Top             =   630
             Width           =   2580
+         End
+         Begin VB.Label Label41 
+            Caption         =   "ans"
+            Height          =   240
+            Left            =   4560
+            TabIndex        =   229
+            Top             =   1800
+            Width           =   330
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Après réforme"
+            Height          =   240
+            Index           =   15
+            Left            =   2760
+            TabIndex        =   228
+            Top             =   1800
+            Width           =   975
+         End
+         Begin VB.Label Label36 
+            Caption         =   "ans"
+            Height          =   240
+            Left            =   2280
+            TabIndex        =   226
+            Top             =   1800
+            Width           =   330
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Age limite Inv cat 1"
+            Height          =   240
+            Index           =   14
+            Left            =   240
+            TabIndex        =   224
+            Top             =   1800
+            Width           =   1455
          End
          Begin VB.Label Label5 
             Caption         =   "Après réforme"
@@ -1034,7 +1078,7 @@ Begin VB.Form frmParamCalcul
             Index           =   30
             Left            =   315
             TabIndex        =   175
-            Top             =   2880
+            Top             =   3720
             Width           =   3435
          End
          Begin VB.Label lblLabels 
@@ -1052,7 +1096,7 @@ Begin VB.Form frmParamCalcul
             Index           =   29
             Left            =   315
             TabIndex        =   174
-            Top             =   1755
+            Top             =   2595
             Width           =   3435
          End
          Begin VB.Label Label5 
@@ -1061,7 +1105,7 @@ Begin VB.Form frmParamCalcul
             Index           =   12
             Left            =   360
             TabIndex        =   173
-            Top             =   3240
+            Top             =   4080
             Width           =   1095
          End
          Begin VB.Label Label5 
@@ -1070,7 +1114,7 @@ Begin VB.Form frmParamCalcul
             Index           =   11
             Left            =   360
             TabIndex        =   172
-            Top             =   3645
+            Top             =   4485
             Width           =   1095
          End
          Begin VB.Label lblLabels 
@@ -1088,7 +1132,7 @@ Begin VB.Form frmParamCalcul
             Index           =   28
             Left            =   315
             TabIndex        =   169
-            Top             =   5535
+            Top             =   6375
             Width           =   3435
          End
          Begin VB.Label lblLabels 
@@ -1106,7 +1150,7 @@ Begin VB.Form frmParamCalcul
             Index           =   27
             Left            =   315
             TabIndex        =   168
-            Top             =   4365
+            Top             =   5205
             Width           =   3435
          End
          Begin VB.Label Label5 
@@ -1115,7 +1159,7 @@ Begin VB.Form frmParamCalcul
             Index           =   10
             Left            =   315
             TabIndex        =   167
-            Top             =   5895
+            Top             =   6735
             Width           =   960
          End
          Begin VB.Label Label5 
@@ -1124,7 +1168,7 @@ Begin VB.Form frmParamCalcul
             Index           =   9
             Left            =   315
             TabIndex        =   166
-            Top             =   6300
+            Top             =   7140
             Width           =   960
          End
          Begin VB.Label Label6 
@@ -1139,9 +1183,9 @@ Begin VB.Form frmParamCalcul
             Caption         =   "Age limite"
             Height          =   240
             Index           =   8
-            Left            =   495
+            Left            =   255
             TabIndex        =   143
-            Top             =   1395
+            Top             =   1440
             Width           =   1095
          End
          Begin VB.Label Label5 
@@ -1150,7 +1194,7 @@ Begin VB.Form frmParamCalcul
             Index           =   7
             Left            =   315
             TabIndex        =   126
-            Top             =   5130
+            Top             =   5970
             Width           =   960
          End
          Begin VB.Label Label5 
@@ -1159,7 +1203,7 @@ Begin VB.Form frmParamCalcul
             Index           =   6
             Left            =   315
             TabIndex        =   125
-            Top             =   4725
+            Top             =   5565
             Width           =   960
          End
          Begin VB.Label Label5 
@@ -1168,7 +1212,7 @@ Begin VB.Form frmParamCalcul
             Index           =   5
             Left            =   315
             TabIndex        =   124
-            Top             =   2520
+            Top             =   3360
             Width           =   1095
          End
          Begin VB.Label Label5 
@@ -1177,7 +1221,7 @@ Begin VB.Form frmParamCalcul
             Index           =   4
             Left            =   315
             TabIndex        =   123
-            Top             =   2115
+            Top             =   2955
             Width           =   1095
          End
          Begin VB.Label Label14 
@@ -1208,7 +1252,7 @@ Begin VB.Form frmParamCalcul
             Caption         =   "Taux technique"
             Height          =   240
             Index           =   1
-            Left            =   495
+            Left            =   255
             TabIndex        =   119
             Top             =   990
             Width           =   1185
@@ -1226,9 +1270,9 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   780
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   117
-         Top             =   6570
+         Top             =   7440
          Width           =   5100
          Begin VB.OptionButton rdoSansLissage 
             Caption         =   "100%"
@@ -1259,7 +1303,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1230
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   93
          Top             =   585
          Width           =   5100
@@ -1592,7 +1636,7 @@ Begin VB.Form frmParamCalcul
       Begin VB.TextBox txtFields 
          Height          =   915
          Index           =   6
-         Left            =   1575
+         Left            =   -73425
          MaxLength       =   1024
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
@@ -1612,7 +1656,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   5865
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   19
          Top             =   3000
          Width           =   5460
@@ -1911,7 +1955,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   4065
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   30
          Top             =   3000
          Width           =   5460
@@ -2164,7 +2208,7 @@ Begin VB.Form frmParamCalcul
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   12
          Top             =   1845
          Width           =   3435
@@ -2225,7 +2269,7 @@ Begin VB.Form frmParamCalcul
          Caption         =   "Code"
          Height          =   255
          Index           =   3
-         Left            =   270
+         Left            =   -74730
          TabIndex        =   2
          Top             =   585
          Width           =   1230
@@ -2234,7 +2278,7 @@ Begin VB.Form frmParamCalcul
          Caption         =   "Nom"
          Height          =   255
          Index           =   1
-         Left            =   3690
+         Left            =   -71310
          TabIndex        =   4
          Top             =   585
          Width           =   420
@@ -2243,7 +2287,7 @@ Begin VB.Form frmParamCalcul
          Caption         =   "Commentaires"
          Height          =   255
          Index           =   6
-         Left            =   255
+         Left            =   -74745
          TabIndex        =   6
          Top             =   945
          Width           =   1230
@@ -2607,6 +2651,8 @@ Private Sub cmdUpdate_Click()
   
   theParam.AgeLimiteCalulDC = m_dataHelper.GetDouble2(txtAgeLimiteCalulDC)
   theParam.AgeLimiteCalulDC_Retraite = m_dataHelper.GetDouble2(txtAgeLimiteCalulDC_Retraite)
+  theParam.AgeLimiteCalulDC_Inval1 = m_dataHelper.GetDouble2(txtAgeLimiteCalulDC_Inval1)
+  theParam.AgeLimiteCalulDC_Retraite_Inval1 = m_dataHelper.GetDouble2(txtAgeLimiteCalulDC_Retraite_Inval1)
   
   If rdoCapitauxConstitif.Value = True Then
     theParam.MethodeCalculDC = eCapitauxConstitutifs
@@ -2961,6 +3007,8 @@ Private Sub Form_Load()
   
   txtAgeLimiteCalulDC = theParam.AgeLimiteCalulDC
   txtAgeLimiteCalulDC_Retraite = theParam.AgeLimiteCalulDC_Retraite
+  txtAgeLimiteCalulDC_Inval1 = theParam.AgeLimiteCalulDC_Inval1
+  txtAgeLimiteCalulDC_Retraite_Inval1 = theParam.AgeLimiteCalulDC_Retraite_Inval1
     
   '
   ' lecture coeff DC
@@ -3120,6 +3168,7 @@ Private Sub EnableCoeffBCAC()
   cboTableIncapPrecalculDC_Retraite.Enabled = rdoLireCoeffBCAC = True
   cboTableInvalPrecalculDC_Retraite.Enabled = rdoLireCoeffBCAC = True
 End Sub
+
 
 '##ModelId=5C8A68070034
 Private Sub rdoCalculCoeffBCAC_Click()

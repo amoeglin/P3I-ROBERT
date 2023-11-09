@@ -123,19 +123,19 @@ Begin VB.MDIForm frmMain
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   4
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":1F9C
+            Picture         =   "main.frx":1FE3
             Key             =   "openCahier"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":20A6
+            Picture         =   "main.frx":20ED
             Key             =   "openPeriode"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":21B0
+            Picture         =   "main.frx":21F7
             Key             =   "About"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "main.frx":22BA
+            Picture         =   "main.frx":2301
             Key             =   ""
          EndProperty
       EndProperty
@@ -373,12 +373,14 @@ Private Sub MDIForm_Load()
     
     ' Verification piratage
     licenceDatPath = GetSettingIni(SectionName, "Dir", "LicencesPath", App.Path)
-    
+'Désactivation de message de licence pour Generali le 06/11/2023 AG et AM
+#If P3I_GENERALI <> 1 Then
     If CheckProtection(licenceDatPath) = False Then
       LeaveProtection
       Unload Me
       End
     End If
+#End If
     
     '***
     '*** FIN PROTECTION

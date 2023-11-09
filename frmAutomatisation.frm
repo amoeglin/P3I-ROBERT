@@ -1,16 +1,16 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "_fpSPR80.OCX"
+Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "fpSPR80.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAutomatisation 
    Caption         =   "Automatisation"
-   ClientHeight    =   10335
+   ClientHeight    =   13470
    ClientLeft      =   -5850
    ClientTop       =   -1515
    ClientWidth     =   19080
    LinkTopic       =   "Form1"
-   ScaleHeight     =   10335
+   ScaleHeight     =   13470
    ScaleWidth      =   19080
    StartUpPosition =   3  'Windows Default
    Begin VB.CommandButton cmdStat 
@@ -70,7 +70,7 @@ Begin VB.Form frmAutomatisation
       Height          =   375
       Left            =   14520
       TabIndex        =   24
-      Top             =   12720
+      Top             =   12600
       Visible         =   0   'False
       Width           =   2295
    End
@@ -90,13 +90,13 @@ Begin VB.Form frmAutomatisation
       Left            =   11400
       MaskColor       =   &H000000FF&
       TabIndex        =   20
-      Top             =   12720
+      Top             =   12600
       Visible         =   0   'False
       Width           =   2895
    End
    Begin VB.CommandButton cmdConfigInfocentre 
       Caption         =   "Configuration des paramètres pour l'export "
-      Height          =   375
+      Height          =   255
       Left            =   14400
       TabIndex        =   19
       Top             =   12720
@@ -195,11 +195,11 @@ Begin VB.Form frmAutomatisation
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
-      Left            =   360
+      Height          =   360
+      Left            =   480
       MaskColor       =   &H0000FFFF&
       TabIndex        =   0
-      Top             =   12840
+      Top             =   12600
       Width           =   3735
    End
    Begin VB.Frame Frame2 
@@ -444,9 +444,9 @@ Begin VB.Form frmAutomatisation
    End
    Begin MSComctlLib.ProgressBar progAuto 
       Height          =   300
-      Left            =   360
+      Left            =   480
       TabIndex        =   26
-      Top             =   13440
+      Top             =   13080
       Visible         =   0   'False
       Width           =   5655
       _ExtentX        =   9975
@@ -479,7 +479,7 @@ Begin VB.Form frmAutomatisation
       Height          =   300
       Left            =   6360
       TabIndex        =   25
-      Top             =   13440
+      Top             =   13080
       Visible         =   0   'False
       Width           =   12735
    End
@@ -1014,6 +1014,8 @@ Private Sub cmdLaunch_Click()
     m_Logger.EcritTraceDansLog "********** PROCEDURE AUTOMATION **********"
     m_Logger.EcritTraceDansLog ""
     
+    
+    
     periodCount = colPeriods.Count
     
     For i = 1 To periodCount
@@ -1131,6 +1133,17 @@ Private Sub cmdLaunch_Click()
   End If
   
   Screen.MousePointer = vbDefault
+  ' Ajout message CUMUL DES PROVISIONS MTPROIMP dans TTPROVCOLL AG AM le 07/11/2023
+  Dim Cumul_MTPROIMP As Double
+  Dim maxRecord As Double
+  ' Ajout message CUMUL DES PROVISIONS MTPROIMP dans TTPROVCOLL AG AM le 06/11/2023
+  maxRecord = m_dataHelper.GetParameterAsDouble("SELECT count(*) FROM TTPROVCOLL")
+  Cumul_MTPROIMP = m_dataHelper.GetParameterAsDouble("SELECT SUM(MTPROIMP) FROM TTPROVCOLL")
+  m_Logger.EcritTraceDansLog ""
+  m_Logger.EcritTraceDansLog "******************************************************************************"
+  m_Logger.EcritTraceDansLog "### CUMUL DES DONNEES PRESENTES DANS TTPROVCOLL A LA FIN DE L'EXPORT : Export de " & maxRecord & " lignes et Cumul Provisions MTPROIMP = " & Format(Cumul_MTPROIMP, "# ##0.00") & " €"
+  m_Logger.EcritTraceDansLog "******************************************************************************"
+
   
   lblStatus.Caption = "La procédure est terminée ! Nombre des périodes traité : " & colPeriods.Count
   
@@ -1273,8 +1286,34 @@ Private Sub ExportToInfocentre(numPeriode As Long)
   Dim module_calcul As iP3ICalcul, nomModuleCalcul As String
   Dim avecRevalo As Boolean
   Dim sTypeProvision As String
+  Dim Cumul_MTPROIMP As Double
+  Dim maxRecord As Double
   
   On Error GoTo errExport
+  
+  'we delete data only for the first period
+  If isFirstPeriode Then
+    If chkDeleteTTProv.Value = 1 Then
+      m_dataSource.Execute "DELETE FROM TTPROVCOLL"
+      'm_dataSource.Execute "TRUNCATE TABLE TTPROVCOLL"
+      DoEvents
+      
+      m_dataSource.Execute "DELETE FROM TTLOGTRAIT"
+      'm_dataSource.Execute "TRUNCATE TABLE TTLOGTRAIT"
+      DoEvents
+    
+    
+    End If
+          ' Ajout message CUMUL DES PROVISIONS MTPROIMP dans TTPROVCOLL AG AM le 07/11/2023
+
+      maxRecord = m_dataHelper.GetParameterAsDouble("SELECT count(*) FROM TTPROVCOLL")
+      Cumul_MTPROIMP = m_dataHelper.GetParameterAsDouble("SELECT SUM(MTPROIMP) FROM TTPROVCOLL")
+      m_Logger.EcritTraceDansLog ""
+      m_Logger.EcritTraceDansLog "******************************************************************************"
+      m_Logger.EcritTraceDansLog "### CUMUL DES DONNEES PRESENTES DANS TTPROVCOLL AU DEBUT DE L'EXPORT : Export de " & maxRecord & " lignes et Cumul Provisions MTPROIMP = " & Format(Cumul_MTPROIMP, "# ##0.00") & " €"
+      m_Logger.EcritTraceDansLog "******************************************************************************"
+    
+  End If
   
   If lotCurrentPeriode = 0 Then
     m_Logger.EcritTraceDansLog "Aucun lot n'est attache à la période numéro : " & numPeriode & " donc il n'y aura pas d'export des données pour cette période !"
@@ -1300,29 +1339,193 @@ Private Sub ExportToInfocentre(numPeriode As Long)
       sTypeProvision = "SIMUL"
   End Select
   
-  'we delete data only for the first period
-  If isFirstPeriode Then
-    If chkDeleteTTProv.Value = 1 Then
-      m_dataSource.Execute "DELETE FROM TTPROVCOLL"
-      'm_dataSource.Execute "TRUNCATE TABLE TTPROVCOLL"
-      DoEvents
+
+  
+' modification AG le 02/11/2023 pour répliquer l'ancienne méthode d'export
+ 'CopyLot "P3ILOGTRAIT", "TTLOGTRAIT", "", ""
+  'DoEvents
+  
+  'CopyLot "P3IPROVCOLL", "TTPROVCOLL", " AND DataVersion=0", sTypeProvision
+  'DoEvents
+  
+  'm_dataSource.Execute "UPDATE TTLOGTRAIT SET NBLIGTRAIT=(SELECT count(*) FROM TTPROVCOLL), MTTRAIT=0"
+  'DoEvents
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  '  chargement des paramètres de la période
+  Dim rsPeriode As ADODB.Recordset ' recordset Période
+  Dim rq As String
+
+  rq = "SELECT PE.*, PA.*, LG.* FROM Periode PE INNER JOIN ParamCalcul PA " _
+      & " ON PA.PEGPECLE = PE.PEGPECLE AND PA.PENUMCLE = PE.PENUMCLE " _
+      & " LEFT OUTER JOIN P3IUser.Assure_P3ILOGTRAIT AS LG ON PE.PEGPECLE = LG.CleGroupe AND PE.PENUMCLE = LG.NumPeriode AND PE.NUTRAITP3I = LG.NUTRAITP3I " _
+      & " WHERE PE.PEGPECLE=" & GroupeCle & " AND PE.PENUMCLE=" & numPeriode _
+      & " ORDER BY PA.PENUMPARAMCALCUL"
+  
+  Set rsPeriode = m_dataSource.OpenRecordset(rq, Disconnected)
+  
+  If rsPeriode.EOF Then
+    Screen.MousePointer = vbDefault
+    
+    m_Logger.EcritTraceDansLog "Les informations du groupe " & GroupeCle & " période " & numPeriode & " sont absentes des Tables Periode et ParamCalcul"
+
       
-      m_dataSource.Execute "DELETE FROM TTLOGTRAIT"
-      'm_dataSource.Execute "TRUNCATE TABLE TTLOGTRAIT"
-      DoEvents
-    End If
+    Exit Sub
+  End If
+  
+  m_Logger.EcritTraceDansLog "Export de la période " & numPeriode & " vers le lot " & rsPeriode.fields("NUTRAITP3I")
+  
+  If IsNull(rsPeriode.fields("NUTRAITP3I")) Then
+    m_Logger.EcritTraceDansLog "Export impossible : aucun lot attaché (NUTRAITP3I non renseigné). Vérifier le type de période ou l'origine des données."
+    m_Logger.EcritTraceDansLog "Export annulé !"
+    
+    Screen.MousePointer = vbDefault
+      
+    Exit Sub
   End If
   
   
-  CopyLot "P3ILOGTRAIT", "TTLOGTRAIT", "", ""
-  DoEvents
+  m_dataSource.BeginTrans
   
-  CopyLot "P3IPROVCOLL", "TTPROVCOLL", " AND DataVersion=0", sTypeProvision
-  DoEvents
+  'StartTime = Timer
+  ' TTLOGTRAIT
+  m_Logger.EcritTraceDansLog "TTLOGTRAIT..."
+  CopieVersTTLogTrait GroupeCle, numPeriode, rsPeriode.fields("NUTRAITP3I"), m_Logger, chkDeleteTTProv.Value, sTypeProvision
   
-  m_dataSource.Execute "UPDATE TTLOGTRAIT SET NBLIGTRAIT=(SELECT count(*) FROM TTPROVCOLL), MTTRAIT=0"
-  DoEvents
+  'EndTime = Timer
+  'Debug.Print "CopieVersTTLogTrait: ", EndTime - StartTime
   
+   
+  ' TTPROVCOLL
+  Dim rsAssure As ADODB.Recordset, rsCodeCatInval As ADODB.Recordset ', rsAssureP3IProvColl As ADODB.Recordset, rsTTPROVCOLL As ADODB.Recordset
+ 
+  
+  'deja fait dans CopieVersTTLogTrait : m_dataSource.Execute "DELETE FROM TTPROVCOLL WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I")
+  
+    
+  Set rsCodeCatInval = m_dataSource.OpenRecordset("SELECT * FROM CODECATINV WHERE GroupeCle=" & GroupeCle & " AND NumPeriode=" & numPeriode, Disconnected)
+  
+  'StartTime = Timer
+  
+  Set rsAssure = m_dataSource.OpenRecordset("SELECT * FROM Assure WHERE POGPECLE=" & GroupeCle & " AND POPERCLE=" & numPeriode, Snapshot)
+
+'  rsAssure.MoveFirst
+  maxRecord = rsAssure.RecordCount + 1
+  
+    
+  m_Logger.EcritTraceDansLog "TTPROVCOLL..."
+  
+  
+'##############################################################################
+
+  'Close the CSV file, try to delete the csv file and then open it
+  Dim fs As New FileSystemObject
+  Dim fileCSV As String
+  
+  fileCSV = CSVUNCPath & GetWinUser & "_TTProvColl.csv"
+  'fileCSV = CSVUNCPath & "_TTProvColl.csv"
+  
+  On Error Resume Next
+  Close #1
+  
+  If fs.FileExists(fileCSV) Then
+    fs.DeleteFile fileCSV
+  End If
+        
+OpenCSV:
+  
+  Open fileCSV For Output As #1
+  
+  If Err.Number = 70 Then
+  
+    m_Logger.EcritTraceDansLog "Il semble que le fichier " & fileCSV & _
+          " est ouvert. S'il vous plait fermez le fichier et cliquez sur le bouton Ok."
+    
+    Err.Clear
+    GoTo OpenCSV
+  
+  End If
+  
+  On Error GoTo errExport
+  
+'##############################################################################
+
+    
+  '### Looping 66548 for Periode 891
+  Do Until rsAssure.EOF
+  
+    'StartTime = Timer
+    
+    If (rsAssure.AbsolutePosition Mod 9) = 0 Then
+      ' max record
+      If maxRecord < rsAssure.RecordCount + 1 Then
+        maxRecord = rsAssure.RecordCount + 1
+        
+      End If
+      
+      ' affiche la position
+'      fWait.ProgressBar1.Value = rsAssure.AbsolutePosition
+'      fWait.Label1(0).Caption = "Article n°" & fWait.ProgressBar1.Value & " / " & fWait.ProgressBar1.Max
+'      fWait.Refresh
+'      DoEvents
+      
+'      If fWait.fTravailAnnule = True Then
+'        Exit Do
+'      End If
+    End If
+    
+    '##### MODIFY
+    'CopieVersTTProvColl_OLD GroupeCle, frmNumPeriode, rsPeriode, rsAssure, rsCodeCatInval, Logger, sTypeProvision
+    CopieVersTTProvColl GroupeCle, numPeriode, rsPeriode, rsAssure, rsCodeCatInval, m_Logger, sTypeProvision  ', rsAssureP3IProvColl, rsAssure_Retraite
+      
+    'EndTime = Timer
+    'Debug.Print "CopieVersTTProvColl: ", EndTime - StartTime
+    '3,19999999992433E-02
+    
+    DoEvents
+    
+    rsAssure.MoveNext
+  Loop
+  
+  'close tthe CSV file and do a bulk insert - m_dataHelper
+  Close #1
+  
+  '##### MODIFY
+  If True Then
+    If BulkInsert(m_dataSource.Connection, "TTPROVCOLL", fileCSV) = OperationStatus.efailure Then
+      m_Logger.EcritTraceDansLog "The BulkInsert operation into the table TTPROVCOLL failed!"
+    End If
+  End If
+    
+  
+
+  rsCodeCatInval.Close
+  rsAssure.Close
+    
+    m_dataSource.CommitTrans
+    
+    ' Update NBLIGTRAIT et message nb lignes exportées
+    maxRecord = m_dataHelper.GetParameterAsDouble("SELECT count(*) FROM TTPROVCOLL WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I"))
+    
+    Cumul_MTPROIMP = m_dataHelper.GetParameterAsDouble("SELECT SUM(MTPROIMP) FROM TTPROVCOLL WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I"))
+    m_dataSource.Execute "UPDATE TTLOGTRAIT SET NBLIGTRAIT=" & maxRecord & " WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I")
+    'Logger.EcritTraceDansLog "Export de " & maxRecord & " lignes pour le Lot " & rsPeriode.fields("NUTRAITP3I")
+    m_Logger.EcritTraceDansLog "Export de " & maxRecord & " lignes et Cumul Provisions MTPROIMP = " & Format(Cumul_MTPROIMP, "# ##0.00") & " € pour le Lot " & rsPeriode.fields("NUTRAITP3I")
+  
+    ' Creation du fichier top de signalisation
+'    If bCreateSignalisation = True Then
+'      CreationFichierSignalisation
+'    End If
+  
+  
+  
+  rsPeriode.Close
+  
+  
+  'MsgBox "Time: " & Now
+     
+      
+  
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     
   'Creation du fichier top de signalisation when after treating the last period
   If isLastPeriode And chkSignalisation.Value = 1 Then
@@ -1332,6 +1535,12 @@ Private Sub ExportToInfocentre(numPeriode As Long)
   Exit Sub
 
 errExport:
+
+    
+  m_dataSource.RollbackTrans
+  
+  m_Logger.EcritTraceDansLog "Export annulé !"
+  
   
   m_Logger.EcritTraceDansLog "Erreur " & Err & " : " & Err.Description
   Exit Sub
@@ -1966,3 +2175,446 @@ Private Sub sprListe_LeaveCell(ByVal Col As Long, ByVal Row As Long, ByVal NewCo
 End Sub
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Copie un lot de données de nos tables SQL Server vers TTPROVCOLL
+'
+' CleGroupe  : n° de groupe
+' NumPeriode : n° de période
+' rsPeriode  : recordset periode+paramcalcul placé sur le bon jeux de
+'paramètres
+' rsAssure   : recordset des assure placé sur l'assuré en cours
+' rsAssureP3IProvColl : liste des assures - on doit rechercher NUENRP3I
+' rsTTPROVCOLL : recordset de destination
+' cLogger      : log pour les messages
+'
+'##ModelId=5C8A67A5000E
+Private Sub CopieVersTTProvColl(CleGroupe As Integer, numPeriode As Long, rsPeriode As ADODB.Recordset, rsAssure As ADODB.Recordset, rsCodeCatInval As ADODB.Recordset, cLogger As clsLogger, sTypeProsision As String)
+  
+  On Error GoTo err_CopyLot
+  
+  Dim StartTime As Double, EndTime As Double
+  
+  Dim i As Integer, f As ADODB.field, nb As Long, bOk As Boolean
+  Dim rsAssureP3IProvColl As ADODB.Recordset
+  Dim rsAssure_Retraite As ADODB.Recordset
+  
+  'StartTime = Timer
+  
+  'm_dataHelper.Multi_Find rsAssureP3IProvColl, "NUENRP3I=" & rsAssure.fields("NUENRP3I")
+  Set rsAssureP3IProvColl = m_dataSource.OpenRecordset("SELECT * FROM Assure_P3IPROVCOLL WHERE CleGroupe=" & CleGroupe & " AND NumPeriode=" & numPeriode _
+          & " AND NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I") & " AND NUENRP3I=" & rsAssure.fields("NUENRP3I"), Snapshot)
+  
+  'EndTime = Timer
+  'Debug.Print "OpenRecordSet : rsAssureP3IProvColl", EndTime - StartTime
+   
+  If rsAssureP3IProvColl.EOF Then Exit Sub
+  
+  
+  If IsNull(rsAssure.fields("PONumParamCalcul")) Then
+
+      cLogger.EcritTraceDansLog "Erreur dans CopieVersTTProvColl() : Paramètre de calcul non renseigné pour l'assuré NUENRP3I=" & rsAssure.fields("NUENRP3I") & vbLf & "L'export de cet assuré vers TTPROVCOLL ne peut être éffectué !"
+
+    Exit Sub
+  End If
+  
+  
+  m_dataHelper.Multi_Find rsPeriode, "PENUMPARAMCALCUL=" & rsAssure.fields("PONumParamCalcul")
+    
+  If rsPeriode.EOF = True Then
+    cLogger.EcritTraceDansLog "Erreur dans CopieVersTTProvColl() : Paramètre de calcul n°" & rsAssure.fields("PONumParamCalcul") & " introuvable pour l'assuré NUENRP3I=" & rsAssure.fields("NUENRP3I") & vbLf & "L'export de cet assuré vers TTPROVCOLL ne peut être éffectué !"
+    
+    Exit Sub
+  End If
+    
+  If rsPeriode.fields("PETYPEPERIODE") = eProvisionRetraite Or rsPeriode.fields("PETYPEPERIODE") = eProvisionRetraiteRevalo Then
+  
+    'StartTime = Timer
+    Set rsAssure_Retraite = m_dataSource.OpenRecordset("SELECT * FROM Assure_Retraite WHERE POGPECLE=" & CleGroupe & " AND POPERCLE=" & numPeriode & " AND POIdAssure=" & rsAssure.fields("RECNO"), Snapshot)
+  
+    'EndTime = Timer
+    'Debug.Print "OpenRecordSet : ELECT * FROM Assure_Retraite", EndTime - StartTime
+   
+  
+  Else
+    Set rsAssure_Retraite = Nothing
+  End If
+  
+  'rsTTPROVCOLL.AddNew
+  Dim theTTPROVCOLL As New clsTTPROVCOLL
+  
+  'StartTime = Timer
+    
+  theTTPROVCOLL.Load m_dataSource, rsAssureP3IProvColl, True
+    
+  If rsAssure.fields("Commentaire") <> Null Then
+    theTTPROVCOLL.m_COMMENTAIRE = Replace$(rsAssure.fields("Commentaire"), ";", ",")
+  End If
+  
+  theTTPROVCOLL.m_MTCPLEST = Replace$(ReadDouble(rsAssure.fields("POPSAP")), ",", ".")
+  theTTPROVCOLL.m_MTCPLREE = Replace$(ReadDouble(rsAssure.fields("POPSAP")), ",", ".")
+        
+  theTTPROVCOLL.m_MTPROCAL = Replace$(ReadDouble(rsAssure.fields("POPM")), ",", ".")
+  
+  theTTPROVCOLL.m_MTPROIMP = Replace$((ReadDouble(rsAssure.fields("POPM")) + ReadDouble(rsAssure.fields("POPSAP"))), ",", ".")
+  
+  theTTPROVCOLL.m_MTPREANN2 = Replace$(ReadDouble(rsAssure.fields("POPRESTATION_AN_PASSAGE")), ",", ".")
+               
+  If Not rsAssureP3IProvColl.EOF Then
+    theTTPROVCOLL.m_MTPROVIT = Replace$((ReadDouble(rsAssure.fields("POPM_INVAL_1F")) * ReadDouble(rsAssureP3IProvColl.fields("MTPREANN"))), ",", ".")
+    
+    theTTPROVCOLL.m_MTPROPAS = Replace$((ReadDouble(rsAssure.fields("POPM_PASS_1F")) * ReadDouble(rsAssure.fields("POPRESTATION_AN_PASSAGE"))), ",", ".")
+  Else
+    theTTPROVCOLL.m_MTPROVIT = 0
+    theTTPROVCOLL.m_MTPROPAS = 0
+  End If
+               
+  theTTPROVCOLL.m_TXPROV = ReadDouble(rsAssure.fields("POPM_INVAL_1F")) + ReadDouble(rsAssure.fields("POPM_PASS_1F")) _
+                           + ReadDouble(rsAssure.fields("POPM_INCAP_1F")) / 12# _
+                           + ReadDouble(rsAssure.fields("POPM_RCJT_1F")) + ReadDouble(rsAssure.fields("POPM_REDUC_1F"))
+                           
+                           
+  theTTPROVCOLL.m_TXPROV = FormatNumber(theTTPROVCOLL.m_TXPROV, 5)
+  theTTPROVCOLL.m_TXPROV = Replace$(theTTPROVCOLL.m_TXPROV, ",", ".")
+  
+  theTTPROVCOLL.m_TXPROPASS = Replace$(ReadDouble(rsAssure.fields("POPM_PASS_1F")), ",", ".")
+               
+  theTTPROVCOLL.m_TXTECHN = Replace$(ReadDouble(rsAssure.fields("TXTECHN")), ",", ".")
+      
+  theTTPROVCOLL.m_TXFRAIS = Replace$(ReadDouble(rsAssure.fields("TXFRAIS")), ",", ".")
+        
+  theTTPROVCOLL.m_MTCAPCONORI = 0
+  theTTPROVCOLL.m_MTPANCAL = 0
+  theTTPROVCOLL.m_MTCMPPAN = 0
+  theTTPROVCOLL.m_MTCOMPAN = 0
+  theTTPROVCOLL.m_MTCOMCMP = 0
+      
+  If Not rsAssureP3IProvColl.EOF Then
+    theTTPROVCOLL.m_CDLOTIMPORT = Replace$(rsAssureP3IProvColl.fields("NUTRAITP3I"), ",", ".")
+  Else
+    theTTPROVCOLL.m_CDLOTIMPORT = Replace$(rsPeriode.fields("NUTRAITP3I"), ",", ".")
+  End If
+      
+  theTTPROVCOLL.m_PERALIM = Round(rsPeriode.fields("DTTRAIT") / 100#, 0)
+     
+  theTTPROVCOLL.m_TXLISSAGE = Replace$(ReadDouble(rsAssure.fields("POPourcentLissage")), ",", ".")
+          
+  theTTPROVCOLL.m_TXPROSANSLISSAGE = Replace$(ReadDouble(rsAssure.fields("POCoeffBCAC")), ",", ".")
+      
+  theTTPROVCOLL.m_TYPEPROVISION = sTypeProsision
+      
+' PHM 19/11/2009
+  ' cas du MGDC : garantie élémentaire pour le maintien décès = code 6125 : « Exonération prévoyance » et mettre 0 pour le montant de la prestation annualisée ?
+  If rsAssure.fields("POGARCLE") >= 90 Then
+    
+    If IsNull(rsAssure.fields("POGARCLE_NEW")) Then
+    
+      ' Code générique
+      theTTPROVCOLL.m_CDGARAN = 6125
+    
+    Else
+      
+      theTTPROVCOLL.m_CDGARAN = Replace$(rsAssure.fields("POGARCLE_NEW"), ",", ".")
+    
+    End If
+    
+    theTTPROVCOLL.m_MTPREANN = 0  ' Annualisation Base
+    theTTPROVCOLL.m_MTPREANN2 = 0 ' Annualisation Passage
+    
+' PHM 17/09/2010
+    theTTPROVCOLL.m_MTPREREV = 0 ' Annualisation Revalo
+' PHM 17/09/2010
+  
+' PHM 28/06/2011
+  
+  ElseIf rsAssure.fields("POGARCLE") = cdGarRente Then
+    theTTPROVCOLL.m_DTFINPER = ConvertDateToLong(rsAssure.fields("POFIN"))
+
+' PHM 28/06/2011
+  
+  End If
+' PHM 19/11/2009
+      
+      
+  ' Evol 2010 - Lot 2
+  If Not IsNull(rsAssure.fields("POCategorieInval")) Then
+    If rsAssure.fields("POCategorieInval") = 1 Or rsAssure.fields("POCategorieInval") = 2 Or rsAssure.fields("POCategorieInval") = 3 Then
+      m_dataHelper.Multi_Find rsCodeCatInval, "CDCHOIXPREST='" & rsAssureP3IProvColl.fields("CDCHOIXPREST") & "'"
+      
+      If rsCodeCatInval.EOF = False Then
+        theTTPROVCOLL.m_CDCHOIXPREST = Replace$(rsCodeCatInval.fields("CDCHOIXPREST"), ",", ".")
+        theTTPROVCOLL.m_LBCHOIXPREST = Replace$(rsCodeCatInval.fields("LBCHOIXPREST"), ",", ".")
+        theTTPROVCOLL.m_CDCATINV = Replace$(rsCodeCatInval.fields("CDCATINV"), ",", ".")
+        theTTPROVCOLL.m_LBCATINV = Replace$(rsCodeCatInval.fields("LBCATINV"), ",", ".")
+      End If
+    End If
+  End If
+  
+  theTTPROVCOLL.m_MTCAPCON = Replace$(ReadDouble(rsAssure.fields("POMontantCapConstit")), ",", ".")
+  theTTPROVCOLL.m_MTCAPSSRISQ = Replace$(ReadDouble(rsAssure.fields("POMontantCapSousRisque")), ",", ".")
+      
+  ' deja copié depuis P3IPROVCOLL
+  'theTTPROVCOLL.m_CDCONTENTIEUX = ReadDouble(rsAssure.fields("POCDCONTENTIEUX"))
+  'theTTPROVCOLL.m_NUSINISTRE = ReadDouble(rsAssure.fields("PONUSINISTRE"))
+  
+      
+  theTTPROVCOLL.m_FLAMORTISSABLE = rsAssure.fields("POTopAmortissable")
+  
+  
+  ' Se place sur la ligne retraite
+  bOk = False
+  If (rsPeriode.fields("PETYPEPERIODE") = eProvisionRetraite Or rsPeriode.fields("PETYPEPERIODE") = eProvisionRetraiteRevalo) Then
+    bOk = True
+  End If
+  
+  If rsAssure_Retraite Is Nothing Then
+    bOk = False
+  ElseIf rsAssure_Retraite.EOF = True Then
+    bOk = False
+  Else
+    bOk = bOk And True
+  End If
+  
+  If bOk = True Then
+    
+    ' Péridoe réforme des retraites
+    If rsAssure_Retraite.fields("Commentaire") <> Null Then
+      theTTPROVCOLL.m_COMMENTAIRE = Replace$(rsAssure_Retraite.fields("Commentaire"), ";", ",")
+    End If
+    
+    theTTPROVCOLL.m_TXAMORT = 100# * ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement"))
+    theTTPROVCOLL.m_TXAMORT = Replace$(theTTPROVCOLL.m_TXAMORT, ",", ".")
+    
+    theTTPROVCOLL.m_DTLIMPROAPR = ConvertDateToLong(rsAssure_Retraite.fields("POTERME"))
+    
+    theTTPROVCOLL.m_AGELIMINC = 0
+    theTTPROVCOLL.m_AGELIMINV = 0
+    
+    If rsAssure_Retraite.fields("POSIT") = cdPosit_Inval Then
+      theTTPROVCOLL.m_AGELIMINV = DateDiff("yyyy", rsAssure_Retraite.fields("PONAIS"), rsAssure_Retraite.fields("POTERME"))
+    
+    ElseIf rsAssure_Retraite.fields("POSIT") = cdPosit_IncapAvecPassage Or rsAssure_Retraite.fields("POSIT") = cdPosit_IncapSansPassage Then
+      theTTPROVCOLL.m_AGELIMINC = DateDiff("yyyy", rsAssure_Retraite.fields("PONAIS"), rsAssure_Retraite.fields("POTERME"))
+    End If
+    
+    
+    'Problem Fields:
+'8: m_MTINDEMRES
+'11: m_MTCOUTREFPROCAL
+'12: m_MTAMORTCAL
+    
+    theTTPROVCOLL.m_MTPROIMPAVR = Round(ReadDouble(rsAssure.fields("POPM")) + ReadDouble(rsAssure.fields("POPSAP")), 2)
+    theTTPROVCOLL.m_MTPROIMPAVR = Replace$(theTTPROVCOLL.m_MTPROIMPAVR, ",", ".")
+    
+    theTTPROVCOLL.m_MTPROIMPAPR = Round(ReadDouble(rsAssure_Retraite.fields("POPM")) + ReadDouble(rsAssure_Retraite.fields("POPSAP")), 2)
+    theTTPROVCOLL.m_MTPROIMPAPR = Replace$(theTTPROVCOLL.m_MTPROIMPAPR, ",", ".")
+    
+    theTTPROVCOLL.m_MTPROCALAVR = ReadDouble(rsAssure.fields("POPM"))
+    theTTPROVCOLL.m_MTPROCALAPR = ReadDouble(rsAssure_Retraite.fields("POPM"))
+    
+    '### TEST
+    'theTTPROVCOLL.m_MTPROCALAPR = 3.25
+    'theTTPROVCOLL.m_MTPROCALAVR = 3.16
+    
+    '8
+    theTTPROVCOLL.m_MTINDEMRES = ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement")) * (theTTPROVCOLL.m_MTPROCALAPR - theTTPROVCOLL.m_MTPROCALAVR)
+    theTTPROVCOLL.m_MTINDEMRES = CDbl(Format(theTTPROVCOLL.m_MTINDEMRES, "#0.0000000"))
+    theTTPROVCOLL.m_MTINDEMRES = Replace$(theTTPROVCOLL.m_MTINDEMRES, ",", ".")
+        
+    '11
+    theTTPROVCOLL.m_MTCOUTREFPROCAL = (theTTPROVCOLL.m_MTPROCALAPR - theTTPROVCOLL.m_MTPROCALAVR)
+    theTTPROVCOLL.m_MTCOUTREFPROCAL = CDbl(Format(theTTPROVCOLL.m_MTCOUTREFPROCAL, "#0.0000000"))
+    
+        
+    theTTPROVCOLL.m_MTPROCALAPR = Replace$(ReadDouble(rsAssure_Retraite.fields("POPM")), ",", ".")
+    theTTPROVCOLL.m_MTPROCALAVR = Replace$(ReadDouble(rsAssure.fields("POPM")), ",", ".")
+    
+    '12
+    theTTPROVCOLL.m_MTAMORTCAL = theTTPROVCOLL.m_MTCOUTREFPROCAL * ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement"))
+    theTTPROVCOLL.m_MTAMORTCAL = CDbl(Format(theTTPROVCOLL.m_MTAMORTCAL, "#0.0000000"))
+    theTTPROVCOLL.m_MTAMORTCAL = Replace$(theTTPROVCOLL.m_MTAMORTCAL, ",", ".")
+    
+    '13
+    theTTPROVCOLL.m_MTRESTEAMORCAL = theTTPROVCOLL.m_MTCOUTREFPROCAL * (1# - ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement")))
+    theTTPROVCOLL.m_MTRESTEAMORCAL = CDbl(Format(theTTPROVCOLL.m_MTRESTEAMORCAL, "#0.0000000"))
+    theTTPROVCOLL.m_MTRESTEAMORCAL = Replace$(theTTPROVCOLL.m_MTRESTEAMORCAL, ",", ".")
+    
+  
+    theTTPROVCOLL.m_MTPROPASAVR = Round(ReadDouble(rsAssure.fields("POPM_PASS_1F")) * ReadDouble(rsAssure.fields("POPRESTATION_AN_PASSAGE")), 2)
+    theTTPROVCOLL.m_MTPROPASAPR = Round(ReadDouble(rsAssure_Retraite.fields("POPM_PASS_1F")) * ReadDouble(rsAssure_Retraite.fields("POPRESTATION_AN_PASSAGE")), 2)
+        
+    
+    '### modify formating
+    theTTPROVCOLL.m_MTCOUTREFPROPAS = theTTPROVCOLL.m_MTPROPASAPR - theTTPROVCOLL.m_MTPROPASAVR
+    theTTPROVCOLL.m_MTCOUTREFPROPAS = CDbl(Format(theTTPROVCOLL.m_MTCOUTREFPROPAS, "#0.0000000"))
+    
+    
+    theTTPROVCOLL.m_MTAMORTPAS = theTTPROVCOLL.m_MTCOUTREFPROPAS * ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement"))
+    theTTPROVCOLL.m_MTAMORTPAS = Replace$(theTTPROVCOLL.m_MTAMORTPAS, ",", ".")
+    
+    theTTPROVCOLL.m_MTRESTEAMORPAS = theTTPROVCOLL.m_MTCOUTREFPROPAS * (1# - ReadDouble(rsAssure_Retraite.fields("POCoeffAmortissement")))
+    theTTPROVCOLL.m_MTRESTEAMORPAS = Replace$(theTTPROVCOLL.m_MTRESTEAMORPAS, ",", ".")
+    
+    
+    theTTPROVCOLL.m_MTCOUTREFPROCAL = Replace$(theTTPROVCOLL.m_MTCOUTREFPROCAL, ",", ".")
+    theTTPROVCOLL.m_MTPROPASAPR = Replace$(theTTPROVCOLL.m_MTPROPASAPR, ",", ".")
+    theTTPROVCOLL.m_MTCOUTREFPROPAS = Replace$(theTTPROVCOLL.m_MTCOUTREFPROPAS, ",", ".")
+    theTTPROVCOLL.m_MTPROPASAVR = Replace$(theTTPROVCOLL.m_MTPROPASAVR, ",", ".")
+        
+    'le 15/10/2017 ALAIN et ALI
+    theTTPROVCOLL.m_FLAMORTISSABLE = rsAssure_Retraite.fields("POTopAmortissable")
+    
+    rsAssure_Retraite.Close
+    Set rsAssure_Retraite = Nothing
+    
+    'EndTime = Timer
+    'Debug.Print "theTTPROVCOLL: ", EndTime - StartTime
+    '2,59999999980209E-02
+  
+    
+  Else
+    
+    ' Période non retraite ou pas de ligne retraite
+    theTTPROVCOLL.m_TXAMORT = 0#
+    theTTPROVCOLL.m_DTLIMPROAPR = 0#
+    theTTPROVCOLL.m_MTPROIMPAVR = 0#
+    theTTPROVCOLL.m_MTPROIMPAPR = 0#
+    theTTPROVCOLL.m_MTINDEMRES = 0#
+    theTTPROVCOLL.m_MTPROCALAVR = 0#
+    theTTPROVCOLL.m_MTPROCALAPR = 0#
+    theTTPROVCOLL.m_MTCOUTREFPROCAL = 0#
+    theTTPROVCOLL.m_MTAMORTCAL = 0#
+    theTTPROVCOLL.m_MTRESTEAMORCAL = 0#
+    theTTPROVCOLL.m_MTPROPASAVR = 0#
+    theTTPROVCOLL.m_MTPROPASAPR = 0#
+    theTTPROVCOLL.m_MTCOUTREFPROPAS = 0#
+    theTTPROVCOLL.m_MTAMORTPAS = 0#
+    theTTPROVCOLL.m_MTRESTEAMORPAS = 0#
+  
+    theTTPROVCOLL.m_AGELIMINC = 0#
+    theTTPROVCOLL.m_AGELIMINV = 0#
+  End If
+  
+  
+  'StartTime = Timer
+  
+  theTTPROVCOLL.SaveToCSV
+  
+  'theTTPROVCOLL.Save m_dataSource
+  
+  'EndTime = Timer
+  'Debug.Print "theTTPROVCOLL.Save: ", EndTime - StartTime
+  '0,282999999995809
+  
+      
+  rsAssureP3IProvColl.Close
+    
+  Exit Sub
+  
+err_CopyLot:
+
+    cLogger.EcritTraceDansLog "Erreur dans CopieVersTTProvColl() : " & Err & vbLf & Err.Description
+  
+  
+  Resume Next
+End Sub
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Copie un lot de données Oracle dans nos tables SQL Server
+'
+'##ModelId=5C8A67A5009A
+Private Sub CopieVersTTLogTrait(CleGroupe As Integer, numPeriode As Long, NumeroLot As Long, cLogger As clsLogger, bDeleteExistant As Boolean, sTypeProvision As String)
+  On Error GoTo err_CopyLot
+  
+  Dim i As Integer, f As ADODB.field, nb As Long, bOk As Boolean
+  
+  Dim rsTTLogTrait As ADODB.Recordset, rsIn As ADODB.Recordset
+  
+  If bDeleteExistant = True Then
+    
+    m_dataSource.Execute "DELETE FROM TTPROVCOLL WHERE NUTRAITP3I=" & NumeroLot
+    m_dataSource.Execute "DELETE FROM TTLOGTRAIT WHERE NUTRAITP3I=" & NumeroLot
+  
+    Set rsIn = m_dataSource.OpenRecordset("SELECT * FROM Assure_P3ILOGTRAIT WHERE CleGroupe=" & CleGroupe & " AND NumPeriode=" & numPeriode & " AND NUTRAITP3I=" & NumeroLot, Snapshot)
+    
+    Set rsTTLogTrait = m_dataSource.OpenRecordset("SELECT * FROM TTLOGTRAIT", Dynamic)
+    
+    rsTTLogTrait.AddNew
+  
+    rsTTLogTrait.fields("NUTRAITP3I") = rsIn.fields("NUTRAITP3I")
+    rsTTLogTrait.fields("NUTRAIT") = rsIn.fields("NUTRAIT")
+    rsTTLogTrait.fields("DTTRAIT") = rsIn.fields("DTTRAIT")
+    rsTTLogTrait.fields("HHTRAIT") = rsIn.fields("HHTRAIT")
+    rsTTLogTrait.fields("DTDEBPER") = rsIn.fields("DTDEBPER")
+    rsTTLogTrait.fields("DTFINPER") = rsIn.fields("DTFINPER")
+    rsTTLogTrait.fields("IDTABLESAS") = rsIn.fields("IDTABLESAS")
+    rsTTLogTrait.fields("NBLIGTRAIT") = rsIn.fields("NBLIGTRAIT")
+    rsTTLogTrait.fields("MTTRAIT") = rsIn.fields("MTTRAIT")
+    
+    rsTTLogTrait.Update
+  
+    rsTTLogTrait.Close
+    
+    rsIn.Close
+  
+  Else
+  
+    m_dataSource.Execute "DELETE FROM TTPROVCOLL WHERE NUTRAITP3I=" & NumeroLot & " AND TYPEPROVISION='" & sTypeProvision & "'"
+  
+    Set rsIn = m_dataSource.OpenRecordset("SELECT * FROM Assure_P3ILOGTRAIT WHERE CleGroupe=" & CleGroupe & " AND NumPeriode=" & numPeriode & " AND NUTRAITP3I=" & NumeroLot, Snapshot)
+    
+    Set rsTTLogTrait = m_dataSource.OpenRecordset("SELECT * FROM TTLOGTRAIT WHERE NUTRAITP3I=" & NumeroLot, Dynamic)
+        
+    If rsTTLogTrait.EOF = True Then
+      rsTTLogTrait.AddNew
+    
+      rsTTLogTrait.fields("NUTRAITP3I") = rsIn.fields("NUTRAITP3I")
+      rsTTLogTrait.fields("NUTRAIT") = rsIn.fields("NUTRAIT")
+      rsTTLogTrait.fields("DTTRAIT") = rsIn.fields("DTTRAIT")
+      rsTTLogTrait.fields("HHTRAIT") = rsIn.fields("HHTRAIT")
+      rsTTLogTrait.fields("DTDEBPER") = rsIn.fields("DTDEBPER")
+      rsTTLogTrait.fields("DTFINPER") = rsIn.fields("DTFINPER")
+      rsTTLogTrait.fields("IDTABLESAS") = rsIn.fields("IDTABLESAS")
+      rsTTLogTrait.fields("NBLIGTRAIT") = rsIn.fields("NBLIGTRAIT")
+      rsTTLogTrait.fields("MTTRAIT") = rsIn.fields("MTTRAIT")
+      
+      rsTTLogTrait.Update
+    End If
+    
+    rsTTLogTrait.Close
+    
+    rsIn.Close
+  
+  End If
+  
+  Exit Sub
+  
+err_CopyLot:
+
+    cLogger.EcritTraceDansLog "Erreur dans CopieVersTTLogTrait() : " & Err & vbLf & Err.Description
+  
+  Resume Next
+End Sub
+
+
+'##ModelId=5C8A67A4030B
+Private Function ReadDouble(f As ADODB.field) As Double
+  If IsNull(f.Value) Then
+    ReadDouble = 0#
+  Else
+    ReadDouble = f.Value
+    'ReadDouble = FormatNumber(ReadDouble, 8)
+    
+  End If
+End Function
+
+
+'##ModelId=5C8A67A4032A
+Private Function ConvertDateToLong(dDate As Variant) As Long
+  If IsNull(dDate) Then
+    ConvertDateToLong = 0
+  Else
+    ' YYYYMMDD = Y*10000 + M * 100 + D
+    ConvertDateToLong = Year(dDate) * 10000 + Month(dDate) * 100 + Day(dDate)
+  End If
+End Function

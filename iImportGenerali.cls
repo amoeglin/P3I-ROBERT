@@ -20,7 +20,7 @@ Option Explicit
 '
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-Implements iP3IGeneraliImport
+Implements P3IGeneraliImport.iP3IGeneraliImport
 
 
 '##ModelId=5C90E962008C

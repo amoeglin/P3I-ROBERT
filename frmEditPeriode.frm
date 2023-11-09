@@ -1,7 +1,7 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "_fpSPR80.OCX"
+Object = "{F856EC8B-F03C-4515-BDC6-64CBD617566A}#8.0#0"; "fpSPR80.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmEditPeriode 
    Caption         =   "Periode du ..."
@@ -1349,7 +1349,8 @@ Public Sub FormLoad()
   
   btnCalcRevalo.Enabled = False
   btnCalc.Enabled = False
-  btnExportSAS.Enabled = False
+  ' test de branchement de l'ancienne methode AM et AG le 27/10/2023
+ ' btnExportSAS.Enabled = False
   btnImport.Enabled = False
   
   'disable edit button on Toolbar
@@ -3148,8 +3149,11 @@ OpenCSV:
     
     ' Update NBLIGTRAIT et message nb lignes exportées
     maxRecord = m_dataHelper.GetParameterAsDouble("SELECT count(*) FROM TTPROVCOLL WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I"))
+    Dim Cumul_MTPROIMP As Double
+    Cumul_MTPROIMP = m_dataHelper.GetParameterAsDouble("SELECT SUM(MTPROIMP) FROM TTPROVCOLL WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I"))
     m_dataSource.Execute "UPDATE TTLOGTRAIT SET NBLIGTRAIT=" & maxRecord & " WHERE NUTRAITP3I=" & rsPeriode.fields("NUTRAITP3I")
-    Logger.EcritTraceDansLog "Export de " & maxRecord & " lignes pour le Lot " & rsPeriode.fields("NUTRAITP3I")
+    'Logger.EcritTraceDansLog "Export de " & maxRecord & " lignes pour le Lot " & rsPeriode.fields("NUTRAITP3I")
+    Logger.EcritTraceDansLog "Export de " & maxRecord & " lignes et Cumul Provisions MTPROIMP = " & Format(Cumul_MTPROIMP, "# ##0.00") & " € pour le Lot " & rsPeriode.fields("NUTRAITP3I")
   
     ' Creation du fichier top de signalisation
     If bCreateSignalisation = True Then

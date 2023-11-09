@@ -24,6 +24,7 @@ Begin VB.Form frmParamCalculIni
       _ExtentX        =   19950
       _ExtentY        =   11060
       _Version        =   393216
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -37,7 +38,7 @@ Begin VB.Form frmParamCalculIni
       EndProperty
       TabCaption(0)   =   "Général"
       TabPicture(0)   =   "frmParamCalculIni.frx":1BB2
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "lblLabels(6)"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "lblLabels(1)"
@@ -64,19 +65,25 @@ Begin VB.Form frmParamCalculIni
       TabCaption(1)   =   "Rentes"
       TabPicture(1)   =   "frmParamCalculIni.frx":1BCE
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Frame6"
+      Tab(1).Control(0)=   "Frame5"
       Tab(1).Control(1)=   "Frame1"
-      Tab(1).Control(2)=   "Frame5"
+      Tab(1).Control(2)=   "Frame6"
       Tab(1).ControlCount=   3
       TabCaption(2)   =   "Maintien Garanties Décès"
       TabPicture(2)   =   "frmParamCalculIni.frx":1BEA
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "Frame12"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Frame14"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Frame15"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Frame13"
+      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Frame17"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "Frame16"
+      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).ControlCount=   6
       Begin VB.Frame Frame5 
          Caption         =   "Reprise de revalorisation"
@@ -242,7 +249,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   9270
+         Left            =   -65730
          TabIndex        =   133
          Top             =   2025
          Width           =   1905
@@ -267,7 +274,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   780
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   129
          Top             =   4680
          Width           =   5100
@@ -298,7 +305,7 @@ Begin VB.Form frmParamCalculIni
       End
       Begin VB.TextBox txtCode 
          Height          =   285
-         Left            =   1590
+         Left            =   -73410
          MaxLength       =   60
          TabIndex        =   2
          Top             =   540
@@ -306,7 +313,7 @@ Begin VB.Form frmParamCalculIni
       End
       Begin VB.TextBox txtNomParamCalcul 
          Height          =   285
-         Left            =   4200
+         Left            =   -70800
          MaxLength       =   60
          TabIndex        =   4
          Top             =   540
@@ -324,7 +331,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   7
          Top             =   2025
          Width           =   5460
@@ -365,7 +372,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   690
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   120
          Top             =   3825
          Width           =   5100
@@ -406,7 +413,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1365
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   112
          Top             =   2160
          Width           =   5100
@@ -521,7 +528,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   3930
-         Left            =   -69285
+         Left            =   5715
          TabIndex        =   103
          Top             =   585
          Width           =   5100
@@ -705,7 +712,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   780
-         Left            =   -69285
+         Left            =   5715
          TabIndex        =   102
          Top             =   4680
          Width           =   5100
@@ -738,7 +745,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1230
-         Left            =   -74685
+         Left            =   315
          TabIndex        =   81
          Top             =   585
          Width           =   5100
@@ -1071,7 +1078,7 @@ Begin VB.Form frmParamCalculIni
       Begin VB.TextBox txtFields 
          Height          =   1050
          Index           =   6
-         Left            =   1575
+         Left            =   -73425
          MaxLength       =   1024
          MultiLine       =   -1  'True
          ScrollBars      =   2  'Vertical
@@ -1091,7 +1098,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   2985
-         Left            =   135
+         Left            =   -74865
          TabIndex        =   18
          Top             =   3195
          Width           =   5460
@@ -1235,7 +1242,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   2985
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   32
          Top             =   3195
          Width           =   5460
@@ -1395,7 +1402,7 @@ Begin VB.Form frmParamCalculIni
             Strikethrough   =   0   'False
          EndProperty
          Height          =   1050
-         Left            =   5715
+         Left            =   -69285
          TabIndex        =   11
          Top             =   2025
          Width           =   3435
@@ -1456,7 +1463,7 @@ Begin VB.Form frmParamCalculIni
          Caption         =   "Code"
          Height          =   255
          Index           =   3
-         Left            =   270
+         Left            =   -74730
          TabIndex        =   1
          Top             =   585
          Width           =   1230
@@ -1465,7 +1472,7 @@ Begin VB.Form frmParamCalculIni
          Caption         =   "Nom"
          Height          =   255
          Index           =   1
-         Left            =   3690
+         Left            =   -71310
          TabIndex        =   3
          Top             =   585
          Width           =   420
@@ -1474,7 +1481,7 @@ Begin VB.Form frmParamCalculIni
          Caption         =   "Commentaires"
          Height          =   255
          Index           =   6
-         Left            =   255
+         Left            =   -74745
          TabIndex        =   5
          Top             =   945
          Width           =   1230

@@ -6036,9 +6036,17 @@ Private Function FindCoeffBCAC(ByRef rsAssure As ADODB.Recordset, ByRef Posit As
   InterpolationInval = eInterpolationInval_AgeDuree     ' m_rsPeriode.fields("PEINTERPOLATION_INVAL")
   
   ComputeAgeEtAnciennete rsAssure, Posit, AgeArret, AgeCalcul, Anciennete, bForceEnInval, InterpolationInval
-  
-  
-  AgeLimite = IIf(bForReformeRetraite = True, m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Retraite"), m_rsPeriode.fields("PEAgeLimiteCalul_MDC"))
+  'Evolution calcul maintien garantie décès AG le 28/10/2023
+  If rsAssure.fields("POCategorieInval") = 1 And m_rsPeriode.fields("PEPortefeuilleSalaries") = True Then
+    'Ajout le 07/11/2023 AG pour gérer les calucls des anciennes périodes
+    If IsNull(m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Inval1")) Or IsNull(m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Retraite_Inval1")) Then
+      AgeLimite = IIf(bForReformeRetraite = True, m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Retraite"), m_rsPeriode.fields("PEAgeLimiteCalul_MDC"))
+    Else
+      AgeLimite = IIf(bForReformeRetraite = True, m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Retraite_Inval1"), m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Inval1"))
+    End If
+  Else
+    AgeLimite = IIf(bForReformeRetraite = True, m_rsPeriode.fields("PEAgeLimiteCalul_MDC_Retraite"), m_rsPeriode.fields("PEAgeLimiteCalul_MDC"))
+  End If
   
   If m_rsPeriode.fields("PERecalculBCAC") = True Then
     

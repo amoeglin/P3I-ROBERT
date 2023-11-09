@@ -182,6 +182,10 @@ Public AgeLimiteCalulDC As Integer
 '##ModelId=5C8A75F801E8
 Public AgeLimiteCalulDC_Retraite As Integer
 
+Public AgeLimiteCalulDC_Inval1 As Integer
+
+Public AgeLimiteCalulDC_Retraite_Inval1 As Integer
+
 '##ModelId=5C8A75F80213
 Public TableIncapacitePrecalculDC As String
 '##ModelId=5C8A75F8022A
@@ -392,6 +396,10 @@ Public Function LoadFromIni(NumParam As Long, typeParam As String) As Boolean
   AgeLimiteCalulDC = m_dataHelper.GetDouble2(GetSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC", "60"))
   AgeLimiteCalulDC_Retraite = m_dataHelper.GetDouble2(GetSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC", "60"))
   
+  AgeLimiteCalulDC_Inval1 = m_dataHelper.GetDouble2(GetSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC_Inval1", "60"))
+  AgeLimiteCalulDC_Retraite_Inval1 = m_dataHelper.GetDouble2(GetSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC_Inval1", "60"))
+  
+  
   ' combo incap
   TableIncapacitePrecalculDC = GetSettingIni(CompanyName, theParamSectionName, "TableIncapacitePrecalculDC", "PMIJ60-2,5%")
   TableIncapacitePrecalculDC_Retraite = GetSettingIni(CompanyName, theParamSectionName, "TableIncapacitePrecalculDC", "PMIJ60-2,5%")
@@ -550,6 +558,7 @@ Public Function SaveToIni(bToDefaultSection As Boolean, typeParam As String) As 
   Call SaveSettingIni(CompanyName, theParamSectionName, "FraisGestionDC", FraisGestionCalculDC)
   
   Call SaveSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC", AgeLimiteCalulDC)
+  Call SaveSettingIni(CompanyName, theParamSectionName, "AgeLimiteCalulDC_Inval1", AgeLimiteCalulDC_Inval1)
   
   ' coeff incap precalculé dc
   Call SaveSettingIni(CompanyName, theParamSectionName, "TableIncapacitePrecalculDC", TableIncapacitePrecalculDC)
@@ -736,6 +745,18 @@ Public Function LoadFromDB(NumGroupe As Integer, numPeriode As Long, NumParamCal
   AgeLimiteCalulDC = rs.fields("PEAgeLimiteCalul_MDC").Value
   AgeLimiteCalulDC_Retraite = ReadDouble(rs.fields("PEAgeLimiteCalul_MDC_Retraite"), AgeLimiteCalulDC)
   
+  'Ajout le 06/11/2023 AG
+  If IsNull(rs.fields("PEAgeLimiteCalul_MDC_Inval1")) Then
+    AgeLimiteCalulDC_Inval1 = AgeLimiteCalulDC
+  Else
+    AgeLimiteCalulDC_Inval1 = rs.fields("PEAgeLimiteCalul_MDC_Inval1").Value
+  End If
+  
+  If IsNull(rs.fields("PEAgeLimiteCalul_MDC_Retraite_Inval1")) Then
+   AgeLimiteCalulDC_Retraite_Inval1 = AgeLimiteCalulDC_Retraite
+  Else
+   AgeLimiteCalulDC_Retraite_Inval1 = ReadDouble(rs.fields("PEAgeLimiteCalul_MDC_Retraite_Inval1"), AgeLimiteCalulDC_Inval1)
+  End If
   MethodeCalculDC = rs.fields("PEMethodeCalcul").Value
   PctPMCalculeeDC = ReadDouble(rs.fields("PEPctPMCalculeeDC"), 0)
 
@@ -920,6 +941,9 @@ Public Function SaveToDB(NumGroupe As Integer, numPeriode As Long) As Boolean
   rs.fields("PEAgeLimiteCalul_MDC").Value = AgeLimiteCalulDC
   rs.fields("PEAgeLimiteCalul_MDC_Retraite").Value = AgeLimiteCalulDC_Retraite
   
+  rs.fields("PEAgeLimiteCalul_MDC_Inval1").Value = AgeLimiteCalulDC_Inval1
+  rs.fields("PEAgeLimiteCalul_MDC_Retraite_Inval1").Value = AgeLimiteCalulDC_Retraite_Inval1
+  
   rs.fields("PEMethodeCalcul").Value = MethodeCalculDC
   rs.fields("PEPctPMCalculeeDC").Value = PctPMCalculeeDC
 
@@ -1096,6 +1120,9 @@ Public Function DumpParam() As String
   sParam = sParam & "            Frais de gestion = " & FraisGestionCalculDC & "%" & vbLf
   sParam = sParam & "            Age limite avant réforme = " & AgeLimiteCalulDC & " ans" & vbLf
   sParam = sParam & "            Age limite après réforme = " & AgeLimiteCalulDC_Retraite & " ans" & vbLf & vbLf
+  sParam = sParam & "            Age limite catégorie invadité 1 = " & AgeLimiteCalulDC_Inval1 & " ans" & vbLf
+  sParam = sParam & "            Age limite catégorie invadité 1 après réforme = " & AgeLimiteCalulDC_Retraite_Inval1 & " ans" & vbLf & vbLf
+  
   
   ' coeff precalculé dc
   sParam = sParam & "        Coefficient précalculé :" & vbLf
